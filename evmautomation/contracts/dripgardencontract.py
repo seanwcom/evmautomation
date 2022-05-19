@@ -21,7 +21,17 @@ class DripGardenContract(BscContract):
         super().__init__(rpc_url, DRIP_GARDEN_CONTRACT_ADDRESS, DRIP_GARDEN_ABI, wallet_address)
         
         # setup the value on init
-        self.seeds_per_plant = self.get_seeds_per_plant()
+        for _ in range(5):
+            try:
+                self.seeds_per_plant = self.get_seeds_per_plant()
+            except BaseException as e:
+                print('-- Garden Contract Error --')
+                print('{!r}'.format(e))
+                continue
+            else:
+                break
+        else:
+            print('-- Garden Contract Error - retried and failed --')
 
     def get_seeds_per_plant(self):
         return int(self._contract.functions.SEEDS_TO_GROW_1PLANT().call())

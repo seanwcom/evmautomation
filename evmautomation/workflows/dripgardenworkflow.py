@@ -140,7 +140,7 @@ class DripGardenWorkflow(BscWorkflow):
             next_runs.sort()
             next_run = next_runs[0]
         else:
-            next_run = self.config.run_every_seconds
+            next_run = self.run_every_seconds
         
         sleep_time = min(max(next_run,0), self.sleep_loop_seconds)
         return sleep_time
